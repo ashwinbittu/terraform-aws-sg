@@ -1,6 +1,5 @@
 resource "aws_security_group" "myinstance" {
   vpc_id      = var.aws_vpc_id
-  #name        = "${var.app_name}-security-group-${var.app_color}"
   name        = "${var.app_name}-security-group"
   description = "security group for my instance"
   egress {
@@ -25,18 +24,15 @@ resource "aws_security_group" "myinstance" {
   }
 
   tags = {
-    #Name ="${var.app_name}-security-group-${var.app_color}" 
     Name ="${var.app_name}-security-group" 
     environment  = var.app_env
     appname = var.app_name
     csiappid = var.app_csi
-    #appcolor = var.app_color
   }
 }
 
 resource "aws_security_group" "elb-securitygroup" {
   vpc_id      = var.aws_vpc_id
-  #name        = "${var.app_name}-elb-security-group-${var.app_color}"
   name        =  var.aws_sg_name
   description = "security group for load balancer"
   egress {
@@ -53,11 +49,9 @@ resource "aws_security_group" "elb-securitygroup" {
     cidr_blocks = ["0.0.0.0/0"]
   }
   tags = {
-    #Name = "${var.app_name}-elb-security-group-${var.app_color}"
     Name = "${var.app_name}-elb-security-group"
     environment  = var.app_env
     appname = var.app_name
     csiappid = var.app_csi
-    #appcolor = var.app_color
   }
 }
