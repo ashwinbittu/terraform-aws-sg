@@ -1,7 +1,7 @@
 resource "aws_security_group" "myinstance" {
   vpc_id      = var.aws_vpc_id
   name        = "${var.app_name}-security-group"
-  descriptiohttps://github.com/ashwinbittu/terraform-aws-sgn = "security group for my instance"
+  description = "security group for my instance"
   egress {
     from_port   = 0
     to_port     = 0
