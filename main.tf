@@ -1,7 +1,7 @@
 resource "aws_security_group" "myinstance" {
   vpc_id      = var.aws_vpc_id
   name        = "${var.app_name}-security-group"
-  description = "security group for my instance"
+  descriptiohttps://github.com/ashwinbittu/terraform-aws-sgn = "security group for my instance"
   egress {
     from_port   = 0
     to_port     = 0
@@ -27,7 +27,7 @@ resource "aws_security_group" "myinstance" {
     Name ="${var.app_name}-security-group" 
     environment  = var.app_env
     appname = var.app_name
-    csiappid = var.app_csi
+    appid = var.app_id
   }
 }
 
@@ -60,6 +60,6 @@ resource "aws_security_group" "elb-securitygroup" {
     Name = "${var.app_name}-elb-security-group"
     environment  = var.app_env
     appname = var.app_name
-    csiappid = var.app_csi
+    appid = var.app_id
   }
 }
