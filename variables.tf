@@ -29,8 +29,14 @@ variable "create_sg" {
 }
 
 variable "rules" {
-  type        = list(string)
-  default     = []
+  #type        = list(string)
+  #default     = []
+}
+
+variable "security_group_id" {
+  description = "ID of existing security group whose rules we will manage"
+  type        = string
+  default     = null
 }
 
 variable "ingress_cidr_blocks" {

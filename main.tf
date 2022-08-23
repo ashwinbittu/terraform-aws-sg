@@ -1,6 +1,6 @@
 locals {
   create = var.create
-  #this_sg_id = var.create_sg ? concat(aws_security_group.this.*.id, aws_security_group.this_name_prefix.*.id, [""])[0] : var.security_group_id
+  this_sg_id = var.create_sg ? concat(aws_security_group.securitygroup.*.id, [""])[0] : var.security_group_id
 }
 
 resource "aws_security_group" "securitygroup" {
@@ -14,7 +14,7 @@ resource "aws_security_group" "securitygroup" {
 resource "aws_security_group_rule" "ingress_with_cidr_blocks" {
   count = local.create ? length(var.ingress_with_cidr_blocks) : 0
 
-  #security_group_id = local.this_sg_id
+  security_group_id = local.this_sg_id
 
   type              = "ingress"
 
