@@ -58,6 +58,19 @@ variable "ingress_with_cidr_blocks" {
   default     = []
 }
 
+variable "ingress_prefix_list_ids" {
+  description = "List of prefix list IDs (for allowing access to VPC endpoints) to use on all ingress rules"
+  type        = list(string)
+  default     = []
+}
+
+variable "number_of_computed_ingress_with_source_security_group_id" {
+  description = "Number of computed ingress rules to create where 'source_security_group_id' is used"
+  type        = number
+  default     = 0
+}
+
+
 variable "rules" {
   description = "Map of known security group rules (define as 'name' = ['from port', 'to port', 'protocol', 'description'])"
   type        = map(list(any))
