@@ -3,7 +3,7 @@ locals {
   this_sg_id = var.create_sg ? concat(aws_security_group.securitygroup.*.id, [""])[0] : var.security_group_id
 }
 
-resource "aws_security_group" "securitygroup" {
+resource "aws_security_group" "this" {
   name        =  var.name
   description = var.description
   vpc_id      = var.aws_vpc_id

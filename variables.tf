@@ -11,9 +11,15 @@ variable "app_id" {
 }
 
 variable "name" {
+  description = "Name of security group - not required if create_sg is false"
+  type        = string
+  default     = null
 }
 
 variable "description" {
+  description = "Description of security group"
+  type        = string
+  default     = "Security Group managed by Terraform"
 }
 
 variable "create" {
