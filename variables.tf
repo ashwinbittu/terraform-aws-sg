@@ -64,6 +64,12 @@ variable "number_of_computed_ingress_with_source_security_group_id" {
   default     = 0
 }
 
+variable "computed_ingress_with_source_security_group_id" {
+  description = "List of computed ingress rules to create where 'source_security_group_id' is used"
+  type        = list(map(string))
+  default     = []
+}
+
 
 variable "rules" {
   description = "Map of known security group rules (define as 'name' = ['from port', 'to port', 'protocol', 'description'])"
