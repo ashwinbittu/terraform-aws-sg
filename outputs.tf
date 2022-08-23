@@ -1,3 +1,4 @@
-output "aws_security_group_instances_id" {
-  value = "${aws_security_group.securitygroup.*.id}"
+output "security_group_id" {
+  description = "The ID of the security group"
+  value       = try(aws_security_group.this[0].id, "")
 }
