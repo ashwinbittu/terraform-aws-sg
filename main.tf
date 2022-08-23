@@ -1,6 +1,6 @@
 resource "aws_security_group" "securitygroup" {
   name        =  var.aws_sg_name
-  description = var.description
+  description = var.aws_sg_description
   vpc_id      = var.aws_vpc_id
 
 
