@@ -1,65 +1,50 @@
-resource "aws_security_group" "myinstance" {
-  vpc_id      = var.aws_vpc_id
-  name        = "${var.app_name}-security-group"
-  description = "security group for my instance"
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  ingress {
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  ingress {
-    from_port       = 80
-    to_port         = 80
-    protocol        = "tcp"
-    security_groups = [aws_security_group.elb-securitygroup.id]
-  }
-
-  tags = {
-    Name ="${var.app_name}-security-group" 
-    environment  = var.app_env
-    appname = var.app_name
-    appid = var.app_id
-  }
-}
-
-resource "aws_security_group" "elb-securitygroup" {
-  vpc_id      = var.aws_vpc_id
+resource "aws_security_group" "securitygroup" {
   name        =  var.aws_sg_name
-  description = "security group for load balancer"
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
+  description = var.description
+  vpc_id      = var.aws_vpc_id
 
-  ingress {
-    from_port   = 80
-    to_port     = 80
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
+
+ }
+
+resource "aws_security_group_rule" "ingress_with_source_security_group_id" {
+    count = local.create ? length(var.ingress_with_source_security_group_id) : 0
   
- ingress {
-    from_port   = 443
-    to_port     = 443
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }  
+    security_group_id = local.this_sg_id
+    type              = "ingress"
   
-  tags = {
-    Name = "${var.app_name}-elb-security-group"
-    environment  = var.app_env
-    appname = var.app_name
-    appid = var.app_id
+    source_security_group_id = var.ingress_with_source_security_group_id[count.index]["source_security_group_id"]
+    prefix_list_ids          = var.ingress_prefix_list_ids
+    description = lookup(
+      var.ingress_with_source_security_group_id[count.index],
+      "description",
+      "Ingress Rule",
+    )
+  
+    from_port = lookup(
+      var.ingress_with_source_security_group_id[count.index],
+      "from_port",
+      var.rules[lookup(
+        var.ingress_with_source_security_group_id[count.index],
+        "rule",
+        "_",
+      )][0],
+    )
+    to_port = lookup(
+      var.ingress_with_source_security_group_id[count.index],
+      "to_port",
+      var.rules[lookup(
+        var.ingress_with_source_security_group_id[count.index],
+        "rule",
+        "_",
+      )][1],
+    )
+    protocol = lookup(
+      var.ingress_with_source_security_group_id[count.index],
+      "protocol",
+      var.rules[lookup(
+        var.ingress_with_source_security_group_id[count.index],
+        "rule",
+        "_",
+      )][2],
+    )
   }
-}

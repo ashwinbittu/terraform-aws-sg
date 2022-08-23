@@ -12,3 +12,6 @@ variable "app_id" {
 
 variable "aws_sg_name" {
 }
+
+variable "aws_sg_description" {
+}
