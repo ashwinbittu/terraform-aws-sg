@@ -1,3 +1,8 @@
+locals {
+  create = var.create
+  this_sg_id = var.create_sg ? concat(aws_security_group.this.*.id, aws_security_group.this_name_prefix.*.id, [""])[0] : var.security_group_id
+}
+
 resource "aws_security_group" "securitygroup" {
   name        =  var.aws_sg_name
   description = var.aws_sg_description
