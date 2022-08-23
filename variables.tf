@@ -10,10 +10,10 @@ variable "app_name" {
 variable "app_id" {
 }
 
-variable "aws_sg_name" {
+variable "name" {
 }
 
-variable "aws_sg_description" {
+variable "description" {
 }
 
 variable "create" {
